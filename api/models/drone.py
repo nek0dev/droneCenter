@@ -3,6 +3,7 @@ from sqlalchemy.orm import relationship
 from models.db_session import SqlAlchemyBase as Base
 from sqlalchemy.ext.asyncio import AsyncSession
 from models.state import State
+from pydantic.types import Decimal
 
 
 class Drones(Base):
@@ -36,7 +37,7 @@ class Drones(Base):
         if drone := await session.execute(select(cls).where(cls.serial_number == serial_number)):
             drone = drone.scalar()
             drone.max_distance = max_distance
-            drone.max_weight = max_weight * 0.9
+            drone.max_weight = Decimal(float(max_weight) * 0.9)
             drone.product_dimensions = product_dimensions
             session.commit()
             return True
