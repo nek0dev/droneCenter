@@ -39,6 +39,8 @@ class Drones(Base):
             drone.max_weight = max_weight * 0.9
             drone.product_dimensions = product_dimensions
             session.commit()
+            return True
+        return False
     
     async def save(self, session: AsyncSession):
         session.add(self)

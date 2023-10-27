@@ -17,11 +17,8 @@ class ChangeDrone(BaseModel):
 
     serial_number: str
     max_weight: Decimal
-    dimensions: list[int]
     product_dimensions: list[int]
     max_distance: int
-    latitude: Decimal
-    longitude: Decimal
 
 class Drone(BaseModel):
     model_config = ConfigDict(from_attributes=True)

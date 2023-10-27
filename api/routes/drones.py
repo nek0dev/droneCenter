@@ -43,3 +43,11 @@ async def get_all_drones(session: AsyncSession = Depends(get_session), token: JW
             for drone in drones
         ]
     return Response(status_code=404)
+
+@router.post("/change", summary='change drone', operation_id="change-drone",
+             description=change_drone, response_class=Response)
+async def change_drone(change: ChangeDrone, session: AsyncSession = Depends(get_session), token: JWTHeader = Depends(JWTBearer())):
+    resp = await Drones.change_drone(change.serial_number, change.max_weight, change.product_dimensions, change.max_distance, token.admin_id, session)
+    if resp:
+        return Response(status_code=201)
+    return Response(status_code=404)
