@@ -29,10 +29,8 @@ async def get_drone_by_id(serial_number: str, session: AsyncSession = Depends(ge
 @router.post("/delete", summary="delete drone by serial number", operation_id="delete-drone-by-serial-number",
              description=delete_drone_by_serial_number, response_class=Response)
 async def delete_drone(delete: DeleteDrone, session: AsyncSession = Depends(get_session), token: JWTHeader = Depends(JWTBearer())):
-    delete_status = await Drones.delete_drone(delete.serial_number, token.admin_id, session)
-    if delete_status:
-        return Response(status_code=201)
-    return Response(status_code=404)
+    await Drones.delete_drone(delete.serial_number, token.admin_id, session)
+    return Response(status_code=201)
 
 @router.get('/all', summary="get all orders", operation_id="get-all-orders",
             description=get_all_drones, response_model=list[Drone])
