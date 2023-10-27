@@ -3,7 +3,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from auth.auth_bearer import JWTBearer, JWTHeader
 from models.db_session import get_session
-from api.descriptions.state import *
+from descriptions.state import *
 from pydantic_models.state import *
 from models.state import State
 from pydantic_models.state import State as StateModel

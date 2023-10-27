@@ -3,7 +3,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from auth.auth_bearer import JWTBearer, JWTHeader
 from models.db_session import get_session
-from api.descriptions.drone import *
+from descriptions.drone import *
 from pydantic_models.drone import *
 from models.drone import Drones
 from models.state import State

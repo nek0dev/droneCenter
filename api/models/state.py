@@ -1,12 +1,12 @@
 from sqlalchemy import Column, Integer, select, Numeric, String, ForeignKey
 from models.db_session import SqlAlchemyBase as Base
 from sqlalchemy.ext.asyncio import AsyncSession
-from models.drone import Drones
 from models.order import Orders
 
 class State(Base):
+    __tablename__ = "state"
     id = Column(Integer, primary_key=True, autoincrement=True)
-    serial_number = Column(String, ForeignKey(Drones.serial_number, ondelete="cascade"), nullable=False)
+    serial_number = Column(String, ForeignKey("drones.serial_number", ondelete="cascade"), nullable=False)
     order_id = Column(Integer, ForeignKey(Orders.id))
     state = Column(String, nullable=False)
     latitude = Column(Numeric(8, 6), nullable=False)
