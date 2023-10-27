@@ -43,6 +43,16 @@ class Drones(Base):
             return True
         return False
     
+    @classmethod
+    async def change_coords(cls, serial_number: str, latitude: float, longitude: float, admin_id: int, session: AsyncSession):
+        if drone := await session.execute(select(cls).where(cls.serial_number == serial_number)):
+            drone = drone.scalar()
+            drone.latitude = Decimal(latitude)
+            drone.longitude = Decimal(longitude)
+            await session.commit()
+            return True
+        return False
+    
     async def save(self, session: AsyncSession):
         session.add(self)
         await session.commit()

@@ -20,6 +20,13 @@ class ChangeDrone(BaseModel):
     product_dimensions: list[int]
     max_distance: int
 
+class ChangeCoordinates(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    serial_number: str
+    latitude: Decimal
+    longitude: Decimal
+
 class Drone(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
