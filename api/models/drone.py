@@ -21,7 +21,7 @@ class Drones(Base):
     @classmethod
     async def delete_drone(cls, drone_serial_number: str, admin_id: int, session: AsyncSession):
         if state := await State.get_state_by_serial_number(drone_serial_number, session):
-            if state.state != "in delivery":
+            if state.scalar().state != "in delivery":
                 await session.execute(delete(cls).where(cls.serial_number==drone_serial_number))
                 return True
         return False
