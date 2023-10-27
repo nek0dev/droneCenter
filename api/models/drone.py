@@ -29,6 +29,7 @@ class Drones(Base):
     @classmethod
     async def get_all_drones(cls, admin_id: int, session: AsyncSession):
         _ = await session.execute(select(cls))
+        return _.scalars().all()
     
     async def save(self, session: AsyncSession):
         session.add(self)
