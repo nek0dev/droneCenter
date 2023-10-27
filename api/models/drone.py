@@ -39,7 +39,7 @@ class Drones(Base):
             drone.max_distance = max_distance
             drone.max_weight = Decimal(float(max_weight) * 0.9)
             drone.product_dimensions = product_dimensions
-            session.commit()
+            await session.commit()
             return True
         return False
     
