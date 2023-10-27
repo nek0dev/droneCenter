@@ -33,3 +33,13 @@ async def delete_drone(delete: DeleteDrone, session: AsyncSession = Depends(get_
     if delete_status:
         return Response(status_code=201)
     return Response(status_code=404)
+
+@router.get('/all', summary="get all orders", operation_id="get-all-orders",
+            description=get_all_drones, response_model=list[Drone])
+async def get_all_drones(session: AsyncSession = Depends(get_session), token: JWTHeader = Depends(JWTBearer())):
+    if drones := await Drones.get_all_drones(token.admin_id, session):
+        return [
+            Drone.model_validate(drone)
+            for drone in drones
+        ]
+    return Response(status_code=404)

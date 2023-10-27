@@ -26,6 +26,10 @@ class Drones(Base):
                 return True
         return False
     
+    @classmethod
+    async def get_all_drones(cls, admin_id: int, session: AsyncSession):
+        _ = await session.execute(select(cls))
+    
     async def save(self, session: AsyncSession):
         session.add(self)
         await session.commit()
