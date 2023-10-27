@@ -55,7 +55,7 @@ async def change_drone(change: ChangeDrone, session: AsyncSession = Depends(get_
 @router.post("/change-coordinates", summary='change drone coordinates', operation_id="change-drone-coordinates",
              description=change_coordinates, response_class=Response)
 async def change_drone(change: ChangeCoordinates, session: AsyncSession = Depends(get_session), token: JWTHeader = Depends(JWTBearer())):
-    resp = await Drones.change_drone(change.serial_number, change.latitude, change.longitude, token.admin_id, session)
+    resp = await Drones.change_coords(change.serial_number, change.latitude, change.longitude, token.admin_id, session)
     if resp:
         return Response(status_code=201)
     return Response(status_code=404)
