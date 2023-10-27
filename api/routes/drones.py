@@ -13,7 +13,7 @@ router = APIRouter()
 @router.post("/create", summary="create drone", operation_id="create-drone",
              description=create_drone, response_model=Drone)
 async def create_drone(new_drone: CreateDrone, session: AsyncSession = Depends(get_session), token: JWTHeader = Depends(JWTBearer())):
-    drone = Drones(serial_number=new_drone.serial_number, max_weight=new_drone.max_weight * 0.9, dimensions=new_drone.dimensions, product_dimensions=new_drone.product_dimensions, max_distance=new_drone.max_distance)
+    drone = Drones(serial_number=new_drone.serial_number, max_weight=Decimal(float(new_drone.max_weight) * 0.9), dimensions=new_drone.dimensions, product_dimensions=new_drone.product_dimensions, max_distance=new_drone.max_distance)
     await drone.save(session)
     state = State(serial_number=drone.serial_number, state='in base', latitude=new_drone.latitude, longitude=new_drone.longitude)
     await state.save(session)
