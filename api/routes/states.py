@@ -17,7 +17,7 @@ async def get_state_by_order_id(order_id: int, session: AsyncSession = Depends(g
         return StateModel.model_validate(state)
     return Response(status_code=404)
 
-@router.get("/get/{serial_number}", summary="get state by serial number", operation_id="get-state-by-serial_number",
+@router.get("/gets/{serial_number}", summary="get state by serial number", operation_id="get-state-by-serial_number",
             description=get_state_by_serial_number, response_model=StateModel)
 async def get_state_by_order_id(serial_number: str, session: AsyncSession = Depends(get_session)):
     if state := await State.get_state_by_serial_number(serial_number, session):

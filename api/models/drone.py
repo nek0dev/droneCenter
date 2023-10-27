@@ -31,6 +31,15 @@ class Drones(Base):
         _ = await session.execute(select(cls))
         return _.scalars().all()
     
+    @classmethod
+    async def change_drone(cls, serial_number: str, max_weight: int, product_dimensions: list[int], max_distance: int, admin_id: int, session: AsyncSession):
+        if drone := session.execute(select(cls).where(cls.serial_number == serial_number)):
+            drone = drone.scalar()
+            drone.max_distance = max_distance
+            drone.max_weight = max_weight * 0.9
+            drone.product_dimensions = product_dimensions
+            session.commit()
+    
     async def save(self, session: AsyncSession):
         session.add(self)
         await session.commit()
