@@ -33,7 +33,7 @@ class Drones(Base):
     
     @classmethod
     async def change_drone(cls, serial_number: str, max_weight: int, product_dimensions: list[int], max_distance: int, admin_id: int, session: AsyncSession):
-        if drone := session.execute(select(cls).where(cls.serial_number == serial_number)):
+        if drone := await session.execute(select(cls).where(cls.serial_number == serial_number)):
             drone = drone.scalar()
             drone.max_distance = max_distance
             drone.max_weight = max_weight * 0.9
