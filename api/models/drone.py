@@ -21,7 +21,10 @@ class Drones(Base):
 
     @classmethod
     async def delete_drone(cls, drone_serial_number: str, admin_id: int, session: AsyncSession):
-        await session.execute(delete(cls).where(cls.serial_number==drone_serial_number))
+        query = "DELETE FROM drones WHERE serial_number = :serial_number"
+        await session.execute(query, {
+            "serial_number": drone_serial_number
+        })
     
     @classmethod
     async def get_all_drones(cls, admin_id: int, session: AsyncSession):
