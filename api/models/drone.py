@@ -25,6 +25,7 @@ class Drones(Base):
         await session.execute(query, {
             "serial_number": drone_serial_number
         })
+        await session.commit()
     
     @classmethod
     async def get_all_drones(cls, admin_id: int, session: AsyncSession):
