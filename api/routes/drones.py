@@ -35,7 +35,8 @@ async def delete_drone(delete: DeleteDrone, session: AsyncSession = Depends(get_
 @router.get('/all', summary="get all orders", operation_id="get-all-orders",
             description=get_all_drones, response_model=list[Drone])
 async def get_all_drones(session: AsyncSession = Depends(get_session), token: JWTHeader = Depends(JWTBearer())):
-    if drones := await Drones.get_all_drones(token.admin_id, session):
+    token = token.admin_id if token.admin_id != None else token.organisation_id
+    if drones := await Drones.get_all_drones(token, session):
         return [
             Drone.model_validate(drone)
             for drone in drones

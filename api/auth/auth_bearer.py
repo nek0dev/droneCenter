@@ -7,7 +7,8 @@ from auth.auth_handler import decode_jwt
 
 
 class JWTHeader(BaseModel):
-    admin_id: int
+    admin_id: int | None = None
+    organisation_id: int | None = None
     expires: float
     admin: bool = False
 
