@@ -50,6 +50,7 @@ class Drones(Base):
             drone = drone.scalar()
             drone.latitude = Decimal(latitude)
             drone.longitude = Decimal(longitude)
+            print(drone.latitude, drone.longitude)
             await session.commit()
             return True
         return False
